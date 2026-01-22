@@ -52,8 +52,8 @@
       document.getElementById("uopBilan").innerHTML = `
         <p class="font-semibold">UoP :</p>
         <p>${gross.toFixed(0)} PLN (gross)</p>
-        <p>- ${(gross*0.3).toFixed(0)} PLN (~30% estimated fees)</p>
-        ------------------------------------
+        <p>- ${(gross*0.3).toFixed(0)} PLN (~30% deductions)</p>
+        -----------------------------
         <p>Net: <span class="font-bold">${netUop.toFixed(0)} PLN (~${netUopEUR.toFixed(0)} EUR)</span></p>
       `;
 
@@ -63,7 +63,7 @@
         <p>${gross.toFixed(0)} PLN (gross)</p>
         <p>- ${taxB2B.toFixed(0)} PLN (12% flat tax)</p>
         <p>- ${zus.toFixed(0)} PLN (ZUS)</p>
-        ------------------------------------
+        -----------------------------
         <p>Net: <span class="font-bold">${netB2B.toFixed(0)} PLN (~${netB2BEUR.toFixed(0)} EUR)</span></p> 
       `;
 
