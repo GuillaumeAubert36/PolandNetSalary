@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net UoP / B2B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">Net UoP / B2B</h1>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 mb-2">Gross salary (PLN)</label>
+      <input id="gross" type="number" placeholder="Ex: 20000" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <button onclick="calculate()" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+      Calculate
+    </button>
+
+    <div id="results" class="mt-6 bg-gray-50 p-4 rounded-lg hidden">
+      <p class="font-semibold mb-2">Overview:</p>
+      <br>
+      <div id="uopBilan" class="mb-4"></div>
+      <br>
+      <div id="b2bBilan" class="mb-4"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculate() 
+    {
+      const gross = parseFloat(document.getElementById("gross").value);
+      const zus = 1500;
+      if (isNaN(gross) || isNaN(zus)) return alert("PLEASE ENTER VALID NUMBER.");
+
+      const flatTax = 0.12; // 12%
+      const plnToEur = 0.2368; // taux moyen 2025
+
+      // --- UoP ---
+      const netUop = gross * 0.7;
+      const netUopEUR = netUop * plnToEur;
+
+      // --- B2B ---
+      const taxB2B = gross * flatTax;
+      const afterTax = gross - taxB2B;
+      const netB2B = afterTax - zus;
+      const netB2BEUR = netB2B * plnToEur;
+
+      // --- Affichage bilan UoP ---
+      document.getElementById("uopBilan").innerHTML = `
+        <p class="font-semibold">UoP :</p>
+        <p>${gross.toFixed(0)} PLN (gross)</p>
+        <p>- ${(gross*0.3).toFixed(0)} PLN (~30% estimated fees)</p>
+        ------------------------------------
+        <p>Net: <span class="font-bold">${netUop.toFixed(0)} PLN (~${netUopEUR.toFixed(0)} EUR)</span></p>
+      `;
+
+      // --- Affichage bilan B2B ---
+      document.getElementById("b2bBilan").innerHTML = `
+        <p class="font-semibold">B2B :</p>
+        <p>${gross.toFixed(0)} PLN (gross)</p>
+        <p>- ${taxB2B.toFixed(0)} PLN (12% flat tax)</p>
+        <p>- ${zus.toFixed(0)} PLN (ZUS)</p>
+        ------------------------------------
+        <p>Net: <span class="font-bold">${netB2B.toFixed(0)} PLN (~${netB2BEUR.toFixed(0)} EUR)</span></p> 
+      `;
+
+      document.getElementById("results").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
