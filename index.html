@@ -25,6 +25,7 @@
       <div id="uopBilan" class="mb-4"></div>
       <br>
       <div id="b2bBilan" class="mb-4"></div>
+      <div id="info" class="mb-4"></div>
     </div>
   </div>
 
@@ -40,31 +41,100 @@
 
       // --- UoP ---
       const netUop = gross * 0.7;
+      const uopDeductions = gross * 0.3;
       const netUopEUR = netUop * plnToEur;
 
       // --- B2B ---
-      const taxB2B = gross * flatTax;
-      const afterTax = gross - taxB2B;
-      const netB2B = afterTax - zus;
+      // Choix du régime ZUS
+      const zusRegimes = {
+        ulga: { label: "Ulga na start (0-6 months)", social: 0, health: 0.049 },
+        maly: { label: "Mały ZUS (6 months - 2 years)", social: 800, health: 0.049 },
+        standard: { label: "Standard ZUS (after 2 years)", social: 1300, health: 0.049 }
+      };
+
+      const regime = zusRegimes["maly"]; // "ulga" | "maly" | "standard"
+      const zusSocial = regime.social;
+      const taxableIncome = gross - zusSocial;
+
+      const taxB2B = taxableIncome * flatTax;                           // 12% flat tax
+      const healthContribution = taxableIncome * regime.health;         // 4.9% santé
+      const netB2B = gross - taxB2B - zusSocial - healthContribution;
       const netB2BEUR = netB2B * plnToEur;
 
       // --- Affichage bilan UoP ---
       document.getElementById("uopBilan").innerHTML = `
-        <p class="font-semibold">UoP :</p>
-        <p>${gross.toFixed(0)} PLN (gross)</p>
-        <p>- ${(gross*0.3).toFixed(0)} PLN (~30% deductions)</p>
-        -----------------------------
-        <p>Net: <span class="font-bold">${netUop.toFixed(0)} PLN (~${netUopEUR.toFixed(0)} EUR)</span></p>
+        <div class="space-y-1 text-sm">
+          <p class="font-semibold text-lg mb-2">📋 UoP (Umowa o Pracę)</p>
+          <p class="text-gray-500 text-xs mb-2">Employment contract</p>
+
+          <div class="flex justify-between">
+            <span class="text-gray-600">Gross</span>
+            <span class="font-medium">${gross.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between text-red-500">
+            <span>− Deductions (~30%)</span>
+            <span>− ${uopDeductions.toFixed(0)} PLN</span>
+          </div>
+
+          <hr class="border-gray-300 my-2"/>
+
+          <div class="flex justify-between font-bold text-green-600 text-base">
+            <span>Estimated net</span>
+            <span>${netUop.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between font-bold text-green-600 text-base">
+            <span>≈ in EUR</span>
+            <span>${netUopEUR.toFixed(0)} EUR</span>
+          </div>
+        </div>
       `;
 
       // --- Affichage bilan B2B ---
       document.getElementById("b2bBilan").innerHTML = `
-        <p class="font-semibold">B2B :</p>
-        <p>${gross.toFixed(0)} PLN (gross)</p>
-        <p>- ${taxB2B.toFixed(0)} PLN (12% flat tax)</p>
-        <p>- ${zus.toFixed(0)} PLN (ZUS)</p>
-        -----------------------------
-        <p>Net: <span class="font-bold">${netB2B.toFixed(0)} PLN (~${netB2BEUR.toFixed(0)} EUR)</span></p> 
+        <div class="space-y-1 text-sm">
+          <p class="font-semibold text-lg mb-2">📋 B2B</p>
+          <p class="text-gray-500 text-xs mb-2">${regime.label}</p>
+
+          <div class="flex justify-between">
+            <span class="text-gray-600">Gross</span>
+            <span class="font-medium">${gross.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between text-red-500">
+            <span>− Flat tax (12%)</span>
+            <span>− ${taxB2B.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between text-red-500">
+            <span>− ZUS Social</span>
+            <span>− ${zusSocial.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between text-red-500">
+            <span>− ZUS Health (4.9%)</span>
+            <span>− ${healthContribution.toFixed(0)} PLN</span>
+          </div>
+
+          <hr class="border-gray-300 my-2"/>
+
+          <div class="flex justify-between font-bold text-green-600 text-base">
+            <span>Estimated net</span>
+            <span>${netB2B.toFixed(0)} PLN</span>
+          </div>
+
+          <div class="flex justify-between font-bold text-green-600 text-base">
+            <span>≈ in EUR</span>
+            <span>${netB2BEUR.toFixed(0)} EUR</span>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("info").innerHTML = `
+        <div class="space-y-1 text-sm">
+          <p class="text-gray-400 text-xs mt-2">* Estimation — exchange rate : 1 EUR = ${(1/plnToEur).toFixed(2)} PLN</p>
+        </div>
       `;
 
       document.getElementById("results").classList.remove("hidden");
