@@ -56,8 +56,9 @@
       const zusSocial = regime.social;
       const taxableIncome = gross - zusSocial;
 
-      const taxB2B = taxableIncome * flatTax;                           // 12% flat tax
-      const healthContribution = taxableIncome * regime.health;         // 4.9% santé
+      const taxB2B = taxableIncome * flatTax;                           
+      const healthBase = 10170.41;
+      const healthContribution = healthBase * 0.049;
       const netB2B = gross - taxB2B - zusSocial - healthContribution;
       const netB2BEUR = netB2B * plnToEur;
 
