@@ -151,19 +151,19 @@
 
           <div class="flex justify-between font-bold text-green-600 text-base">
             <span>Estimated net</span>
-            <span>${netB2B.toFixed(0)} PLN</span>
+            <span>${netB2B.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between font-bold text-green-600 text-base">
             <span>≈ in EUR</span>
-            <span>${netB2BEUR.toFixed(0)} EUR</span>
+            <span>${netB2BEUR.toFixed(2)} EUR</span>
           </div>
         </div>
       `;
 
       document.getElementById("info").innerHTML = `
         <div class="space-y-1 text-sm">
-          <p class="text-gray-400 text-xs mt-2">* Estimation — exchange rate : 1 EUR = ${(1/plnToEur).toFixed(2)} PLN</p>
+          <p class="text-gray-400 text-xs mt-2">* Estimation — exchange rate : 1 EUR = ${(1/plnToEur).toFixed(4)} PLN</p>
         </div>
       `;
 
