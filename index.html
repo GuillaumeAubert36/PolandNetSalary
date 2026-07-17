@@ -50,6 +50,8 @@
         console.warn("Unable to load exchange rate, using fallback value.");
       }
     }
+
+    window.addEventListener("load", loadExchangeRate);
     
     function calculate() 
     {
