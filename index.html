@@ -9,7 +9,7 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
   <div class="fixed top-3 right-4 text-gray-500 text-xs font-bold opacity-70 select-none pointer-events-none text-right">
     <div>Net UoP / B2B</div>
-    <div>v1.0.0</div>
+    <div>v1.1.2</div>
   </div>
   <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
     <h1 class="text-2xl font-bold mb-6 text-center">Net UoP / B2B</h1>
@@ -75,9 +75,9 @@
       // --- B2B ---
       // Choix du régime ZUS
       const zusRegimes = {
-        ulga: { label: "Ulga na start (0-6 months)", social: 0, health: 0.049 },
-        maly: { label: "Mały ZUS (6 months - 2 years)", social: 800, health: 0.049 },
-        standard: { label: "Standard ZUS (after 2 years)", social: 1300, health: 0.049 }
+        ulga: { label: "Ulga na start (0-6 months)", social: 0.0, health: 0.049 },
+        maly: { label: "Mały ZUS (6 months - 2 years)", social: 800.0, health: 0.049 },
+        standard: { label: "Standard ZUS (after 2 years)", social: 1300.0, health: 0.049 }
       };
 
       const regime = zusRegimes["ulga"]; // "ulga" | "maly" | "standard"
@@ -98,24 +98,24 @@
 
           <div class="flex justify-between">
             <span class="text-gray-600">Gross</span>
-            <span class="font-medium">${gross.toFixed(0)} PLN</span>
+            <span class="font-medium">${gross.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between text-red-500">
             <span>− Deductions (~30%)</span>
-            <span>− ${uopDeductions.toFixed(0)} PLN</span>
+            <span>− ${uopDeductions.toFixed(2)} PLN</span>
           </div>
 
           <hr class="border-gray-300 my-2"/>
 
           <div class="flex justify-between font-bold text-green-600 text-base">
             <span>Estimated net</span>
-            <span>${netUop.toFixed(0)} PLN</span>
+            <span>${netUop.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between font-bold text-green-600 text-base">
             <span>≈ in EUR</span>
-            <span>${netUopEUR.toFixed(0)} EUR</span>
+            <span>${netUopEUR.toFixed(2)} EUR</span>
           </div>
         </div>
       `;
