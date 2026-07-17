@@ -30,13 +30,33 @@
   </div>
 
   <script>
+    let plnToEur = 0.24; // Default value.
+
+    async function loadExchangeRate() 
+    {
+      try 
+      {
+        const res = await fetch("https://api.exchangerate.host/latest?base=PLN&symbols=EUR");
+        const data = await res.json();
+    
+        if (data?.rates?.EUR) 
+        {
+          plnToEur = data.rates.EUR;
+        }
+      } 
+      catch (e) 
+      {
+        console.warn("Unable to load exchange rate, using fallback value.");
+      }
+    }
+    
     function calculate() 
     {
       const gross = parseFloat(document.getElementById("gross").value);
+      
       if (isNaN(gross)) return alert("PLEASE ENTER VALID NUMBER.");
 
       const flatTax = 0.12; // 12%
-      const plnToEur = 0.2368; // taux moyen 2025
       const accountant = 466.17; // InFakt
 
       // --- UoP ---
@@ -62,7 +82,7 @@
       const netB2B = gross - taxB2B - zusSocial - healthContribution - accountant;
       const netB2BEUR = netB2B * plnToEur;
 
-      // --- Affichage bilan UoP ---
+      // --- UoP ---
       document.getElementById("uopBilan").innerHTML = `
         <div class="space-y-1 text-sm">
           <p class="font-semibold text-lg mb-2">📋 UoP (Umowa o Pracę)</p>
@@ -92,7 +112,7 @@
         </div>
       `;
 
-      // --- Affichage bilan B2B ---
+      // --- B2B ---
       document.getElementById("b2bBilan").innerHTML = `
         <div class="space-y-1 text-sm">
           <p class="font-semibold text-lg mb-2">📋 B2B</p>
