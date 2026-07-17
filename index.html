@@ -36,7 +36,7 @@
     {      
       try 
       {
-        const res = await fetch("https://api.frankfurter.app/latest?from=PLN&to=EUR");
+        const res = await fetch("https://api.frankfurter.dev/v1/latest?base=PLN&symbols=EUR");
         const data = await res.json();
         console.log(data);
     
