@@ -33,11 +33,11 @@
     let plnToEur = 0.24; // Default value.
 
     async function loadExchangeRate() 
-    {
-      console.log(`test`);
+    {      
       try 
       {
         const res = await fetch("https://api.exchangerate.host/latest?base=PLN&symbols=EUR");
+        console.log(res);
         const data = await res.json();
     
         if (data?.rates?.EUR) 
