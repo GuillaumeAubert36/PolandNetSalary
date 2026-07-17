@@ -33,11 +33,11 @@
     function calculate() 
     {
       const gross = parseFloat(document.getElementById("gross").value);
-      const accountant = 466.17; // InFakt
-      if (isNaN(gross) || isNaN(zus)) return alert("PLEASE ENTER VALID NUMBER.");
+      if (isNaN(gross)) return alert("PLEASE ENTER VALID NUMBER.");
 
       const flatTax = 0.12; // 12%
       const plnToEur = 0.2368; // taux moyen 2025
+      const accountant = 466.17; // InFakt
 
       // --- UoP ---
       const netUop = gross * 0.7;
