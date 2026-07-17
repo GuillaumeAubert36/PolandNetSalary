@@ -33,7 +33,7 @@
     function calculate() 
     {
       const gross = parseFloat(document.getElementById("gross").value);
-      const zus = 1500;
+      const accountant = 466.17; // InFakt
       if (isNaN(gross) || isNaN(zus)) return alert("PLEASE ENTER VALID NUMBER.");
 
       const flatTax = 0.12; // 12%
@@ -59,7 +59,7 @@
       const taxB2B = taxableIncome * flatTax;                           
       const healthBase = 10170.41;
       const healthContribution = healthBase * 0.049;
-      const netB2B = gross - taxB2B - zusSocial - healthContribution;
+      const netB2B = gross - taxB2B - zusSocial - healthContribution - accountant;
       const netB2BEUR = netB2B * plnToEur;
 
       // --- Affichage bilan UoP ---
@@ -100,22 +100,27 @@
 
           <div class="flex justify-between">
             <span class="text-gray-600">Gross</span>
-            <span class="font-medium">${gross.toFixed(0)} PLN</span>
+            <span class="font-medium">${gross.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between text-red-500">
             <span>− Flat tax (12%)</span>
-            <span>− ${taxB2B.toFixed(0)} PLN</span>
+            <span>− ${taxB2B.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between text-red-500">
             <span>− ZUS Social</span>
-            <span>− ${zusSocial.toFixed(0)} PLN</span>
+            <span>− ${zusSocial.toFixed(2)} PLN</span>
           </div>
 
           <div class="flex justify-between text-red-500">
             <span>− ZUS Health (4.9%)</span>
-            <span>− ${healthContribution.toFixed(0)} PLN</span>
+            <span>− ${healthContribution.toFixed(2)} PLN</span>
+          </div>
+
+          <div class="flex justify-between text-red-500">
+            <span>− Accountant (InFakt)</span>
+            <span>− ${accountant.toFixed(2)} PLN</span>
           </div>
 
           <hr class="border-gray-300 my-2"/>
