@@ -7,8 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-b from-[#0B0F19] to-[#101827] text-white flex items-center justify-center min-h-screen p-6">
-  <div class="fixed top-2 right-2 md:top-3 md:right-4 text-gray-500 text-[10px] md:text-xs font-bold opacity-50 select-none pointer-events-none text-right leading-tight">
-    <div>v1.2.0</div>
+  <div class="fixed top-4 right-5 text-[10px] text-gray-500 font-medium opacity-60 select-none pointer-events-none tracking-widest uppercase">
+    v1.2.0
   </div>
   <div class="w-full max-w-md bg-[#141A25] border border-white/10 rounded-3xl p-8 shadow-2xl backdrop-blur-xl">
     <h1 class="text-3xl font-bold tracking-tight">
@@ -134,7 +134,7 @@
             <span class="font-medium">${gross.toFixed(2)} PLN</span>
           </div>
 
-          <div class="flex justify-between text-red-500">
+          <div class="flex justify-between text-gray-400">
             <span>− Deductions (~30%)</span>
             <span>− ${uopDeductions.toFixed(2)} PLN</span>
           </div>
@@ -153,10 +153,15 @@
             </div>          
           </div>
 
-          <div class="flex justify-between font-bold text-green-600 text-base">
-            <span>≈ in EUR</span>
-            <span>${netUopEUR.toFixed(2)} EUR</span>
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-gray-400">
+              ≈ EUR value
+            </span>   
+            <span class="font-semibold text-green-400">
+              ${netUopEUR.toFixed(2)} EUR
+            </span>    
           </div>
+          
         </div>
       `;
 
@@ -211,10 +216,15 @@
               </div>     
           </div>
 
-          <div class="flex justify-between font-bold text-green-600 text-base">
-            <span>≈ in EUR</span>
-            <span>${netB2BEUR.toFixed(2)} EUR</span>
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-gray-400">
+              ≈ EUR value
+            </span>          
+            <span class="font-semibold text-green-400">
+              ${netB2BEUR.toFixed(2)} EUR
+            </span>      
           </div>
+          
         </div>
       `;
 
